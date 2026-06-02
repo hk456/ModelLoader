@@ -1,9 +1,11 @@
 #pragma once
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/quaternion.hpp>
+
 #include "element.h"
 #include "../shader/shader_util.h"
 #include <glm/glm.hpp>
-#include <glm/gtx/quaternion.hpp>
 
 namespace nelems
 {
@@ -21,13 +23,16 @@ namespace nelems
 		void Rotate(const glm::vec2& delta);
 		void Zoom(float delta);
 
+		// -- Setters --
+		void setAspect(float aspect) { mProjectionMatrix = glm::perspective(mFov, aspect, mNear, mFar); }
+
 		// Inherited from Element
 		void update(nshaders::Shader* shader) override;
 
 	private:
 
 		// -- The State --
-		glm::vec3 mPosition;
+		glm::vec3 mPosition = glm::vec3(0.0f, 0.0f, 5.0f);
 		glm::quat mOrientation;
 
 		// -- Cached Matrix --

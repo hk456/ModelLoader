@@ -17,6 +17,8 @@ namespace nshaders
 
 		void use() { glUseProgram(ID); }
 
+		void unload() { glDeleteProgram(ID); }
+
 		// utility uniform functions
 		void setBool(const std::string& name, bool value) const 
 		{

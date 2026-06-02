@@ -111,12 +111,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\vendor;$(ProjectDir)vendor\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)vendor\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32d.lib;assimp-vc145-mtd.lib;glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
@@ -145,6 +145,8 @@
     <ClCompile Include="src\application.cpp" />
     <ClCompile Include="src\elems\camera.cpp" />
     <ClCompile Include="src\elems\element.cpp" />
+    <ClCompile Include="src\elems\mesh.cpp" />
+    <ClCompile Include="src\elems\model.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\render\opengl_buffer_manager.cpp" />
@@ -167,6 +169,10 @@
     <ClInclude Include="src\application.h" />
     <ClInclude Include="src\elems\camera.h" />
     <ClInclude Include="src\elems\element.h" />
+    <ClInclude Include="src\elems\mesh.h" />
+    <ClInclude Include="src\elems\model.h" />
+    <ClInclude Include="src\elems\texture.h" />
+    <ClInclude Include="src\elems\vertex.h" />
     <ClInclude Include="src\main.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\render\opengl_buffer_manager.h" />

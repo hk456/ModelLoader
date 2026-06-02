@@ -16,7 +16,7 @@ namespace nshaders
 				GLchar* strInfoLog = new GLchar[length + 1];
 				glGetShaderInfoLog(shader, length, &length, strInfoLog);
 
-				fprintf(stderr, "Compile error in shader of type %s: %s\n", type, strInfoLog);
+				fprintf(stderr, "Compile error in shader of type %s: %s\n", type.c_str(), strInfoLog);
 				delete[] strInfoLog;
 			}
 		}

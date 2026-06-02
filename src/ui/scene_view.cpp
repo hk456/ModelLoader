@@ -61,4 +61,11 @@ namespace nui
 	void SceneView::load_model(const std::string& filepath)
 	{
 	}
+
+	std::unique_ptr<nelems::Model> SceneView::get_model()
+	{
+		return mModel;
+	}
+
+	
 }

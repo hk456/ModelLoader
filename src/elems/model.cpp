@@ -3,6 +3,11 @@
 
 namespace nelems
 {
+	void Model::update(nshaders::Shader* shader)
+	{
+
+	}
+
 	void nelems::Model::loadModel(std::string const& path)
 	{
 		// define import flags

@@ -23,6 +23,8 @@ namespace nui
 
 		void load_model(const std::string& filepath);
 
+		std::unique_ptr<nelems::Model> get_model();
+
 		void set_model(std::unique_ptr<nelems::Model> model)
 		{
 			mModel = std::move(model);

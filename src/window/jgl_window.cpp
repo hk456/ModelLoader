@@ -8,6 +8,16 @@ namespace nwindow
 		Height = height;
 		Title = title;
 
+		mRenderCtx->init(this);
+
+		mUICtx->init(this);
+
+		mSceneView = std::make_unique<SceneView>();
+
+		mPropertyPanel = std::make_unique<Property_Panel>();
+
+
+
 		return mIsRunning;	
 	}
 
@@ -41,6 +51,10 @@ namespace nwindow
 	}
 
 	void GLWindow::handle_input()
+	{
+	}
+
+	void GLWindow::on_scroll(double delta)
 	{
 	}
 

@@ -9,7 +9,7 @@ struct Texture
 	std::string path;
 };
 
-unsigned int loadTexture(const char* path, const std::string& directory, bool gamma = false)
+inline unsigned int loadTexture(const char* path, const std::string& directory, bool gamma = false)
 {
 	std::string filename = std::string(path);
 	filename = directory + '/' + filename;

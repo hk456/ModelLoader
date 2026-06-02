@@ -169,6 +169,7 @@
     <ClInclude Include="src\application.h" />
     <ClInclude Include="src\elems\camera.h" />
     <ClInclude Include="src\elems\element.h" />
+    <ClInclude Include="src\elems\light.h" />
     <ClInclude Include="src\elems\mesh.h" />
     <ClInclude Include="src\elems\model.h" />
     <ClInclude Include="src\elems\texture.h" />

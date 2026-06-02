@@ -22,16 +22,15 @@ namespace nui
 
 		void set_mesh_load_callback(const std::function<void(const std::string&)>& callback)
 		{
-			mMeshLoadCallback = callback;
+			mModelLoadCallback = callback;
 		}
-
 
 	private:
 
 		// create a file browser instance
 		ImGui::FileBrowser mFileDialog;
 
-		std::function<void(const std::string&)> mMeshLoadCallback;
+		std::function<void(const std::string&)> mModelLoadCallback;
 
 		std::string mCurrentFile;
 

@@ -24,6 +24,9 @@ namespace nelems
 		~Mesh();
 
 		// Public Draw Function
+		void draw(nshaders::Shader* shader);
+
+		// update uniforms
 		void update(nshaders::Shader* shader) override;
 
 	private:

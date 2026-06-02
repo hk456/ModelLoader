@@ -18,7 +18,7 @@ namespace nelems
 		glDeleteBuffers(1, &EBO);
 	}
 
-	void Mesh::update(nshaders::Shader* shader)
+	void Mesh::draw(nshaders::Shader* shader)
 	{
 		// bind appropriate textures
 		unsigned int diffuseNr = 1;
@@ -49,6 +49,10 @@ namespace nelems
 		glBindVertexArray(0);
 
 		glActiveTexture(GL_TEXTURE0);	
+	}
+
+	void Mesh::update(nshaders::Shader* shader)
+	{
 	}
 
 	void Mesh::setupMesh()

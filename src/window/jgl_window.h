@@ -37,6 +37,8 @@ namespace nwindow
 			mWindow = (GLFWwindow*)window;
 		}
 
+		void on_scroll(double delta) override;
+
 		void on_key(int key, int scancode, int action, int mods) override;
 
 		void on_resize(int width, int height) override;

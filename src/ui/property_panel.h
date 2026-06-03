@@ -20,7 +20,7 @@ namespace nui
 
 		void render(nui::SceneView* mScene);
 
-		void set_mesh_load_callback(const std::function<void(const std::string&)>& callback)
+		void set_model_load_callback(const std::function<void(const std::string&)>& callback)
 		{
 			mModelLoadCallback = callback;
 		}

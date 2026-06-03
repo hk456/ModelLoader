@@ -30,6 +30,10 @@ namespace nelems
 
 		void update(nshaders::Shader* shader) override;
 
+		// variables to modify
+		float mRoughness;
+		float mMetallic;
+
 	private:
 		// load a model with supported ASSIMP extensions from file and stores 
 		void loadModel(std::string const& path);

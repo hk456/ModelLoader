@@ -3,40 +3,52 @@
 namespace nelems
 {
 	Camera::Camera(const glm::vec3& position, float fov, float aspect, float near, float far) :
-		mPosition(position), mOrientation(glm::quat(1.0f, 0.0f, 0.0f, 0.0f))
+		mFov(fov), mAspect(aspect), mNear(near), mFar(far)
 	{
-		mFov = fov;
-		mAspect = aspect;
-		mNear = near;
-		mFar = far;
+		mFocus = glm::vec3(0.0f);
+		mDistance = glm::distance(position, mFocus);
+
+		// Initialize orientation based on starting position
+		// or just start with default angles
+		mYaw = 0.0f;
+		mPitch = 0.0f;
+
+		update_view_matrix();
+		mProjectionMatrix = glm::perspective(mFov, mAspect, mNear, mFar);
 	}
 
-	glm::mat4 Camera::GetViewMatrix() const
+	inline glm::mat4 Camera::GetViewMatrix()
 	{
-		return glm::inverse(glm::translate(glm::mat4(1.0f), mPosition) * glm::toMat4(mOrientation));
+		if (mViewDirty) {
+			update_view_matrix();
+			mViewDirty = false;
+		}
+		return mViewMatrix;
+	}
+
+	glm::mat4 Camera::update_view_matrix()
+	{
+		// Calculate the direction from Pitch and Yaw
+		mOrientation = glm::quat(glm::vec3(-mPitch, -mYaw, 0.0f));
+
+		// update position relative to focus
+		mPosition = mFocus - GetForwardDirection() * mDistance;
+		
+		mViewMatrix = glm::inverse(glm::translate(glm::mat4(1.0f), mPosition) * glm::toMat4(mOrientation));
 	}
 
 	void Camera::Pan(const glm::vec2& delta)
 	{
-		glm::vec3 right = GetRightDirection();
-		glm::vec3 up = GetUpDirection();
-
-		mPosition += right * delta.x;
-		mPosition += up * delta.y;
+		mFocus += -GetRightDirection() * delta.x * mDistance;
+		mFocus += GetUpDirection() * delta.y * mDistance;
+		mViewDirty = true;
 	}
 
 	void Camera::Rotate(const glm::vec2& delta)
 	{
-		// 1. Create tiny quaternions for the horizontal and vertical range
-		glm::quat yaw = glm::angleAxis(delta.x, up);
-
-		glm::quat pitch = glm::angleAxis(delta.y, GetRightDirection());
-
-		// 2. Combine them 
-		mOrientation = yaw * pitch * mOrientation;
-
-		// 3. Keep it stable
-		mOrientation = glm::normalize(mOrientation);
+		mYaw += delta.x;
+		mPitch += delta.y;
+		mViewDirty = true;
 	}
 
 	void Camera::Zoom(float delta)
@@ -44,8 +56,16 @@ namespace nelems
 		mPosition += GetForwardDirection() * delta;
 	}
 
+	void Camera::reset()
+	{
+		mFocus = { 0.0f, 0.0f, 0.0f };
+		update_view_matrix();
+	}
+
 	void Camera::update(nshaders::Shader* shader)
 	{
+		glm::mat4 model = glm::mat4(1.0f);
+		shader->setMat4("model", model);
 		shader->setMat4("view", GetViewMatrix());
 		shader->setMat4("projection", GetProjectionMatrix());
 	}

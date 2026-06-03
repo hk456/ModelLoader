@@ -17,13 +17,13 @@ namespace nui
 			mShader->unload();
 		}
 
-		void resize(int32_t width, int32_t height);
+		void resize(uint32_t width, uint32_t height);
 
 		void render();
 
 		void load_model(const std::string& filepath);
 
-		std::unique_ptr<nelems::Model> get_model();
+		nelems::Model* get_model();
 
 		void set_model(std::unique_ptr<nelems::Model> model)
 		{

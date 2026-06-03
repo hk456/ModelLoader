@@ -16,7 +16,9 @@ namespace nwindow
 
 		mPropertyPanel = std::make_unique<Property_Panel>();
 
-
+		mPropertyPanel->set_model_load_callback(
+			[this](std::string filepath) { mSceneView->load_model(filepath); }
+		);
 
 		return mIsRunning;	
 	}
@@ -52,6 +54,13 @@ namespace nwindow
 
 	void GLWindow::handle_input()
 	{
+		if (glfwGetKey(mWindow, GLFW_KEY_W) == GLFW_PRESS)
+		{
+		}
+
+		if (glfwGetKey(mWindow, GLFW_KEY_S) == GLFW_PRESS)
+		{
+		}
 	}
 
 	void GLWindow::on_scroll(double delta)

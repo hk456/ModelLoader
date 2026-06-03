@@ -61,6 +61,7 @@ namespace nwindow
 
 		std::unique_ptr<SceneView> mSceneView;
 
+		bool mIsModelLoaded;
 		bool mIsRunning;
 	};
 }

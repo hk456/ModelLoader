@@ -9,20 +9,20 @@ namespace nui
 {
 	SceneView::SceneView() :
 		mCamera(nullptr), mShader(nullptr), mFramebuffer(nullptr),
-		mSize(1300, 900)
+		mSize(400, 300)
 	{
 		mFramebuffer = std::make_unique<nrender::OpenGL_Framebuffer>();
 		mFramebuffer->create_buffers(1300, 900);
-		mShader = std::make_unique<nshaders::Shader>("shaders/vsPbr.shader", "shaders/fsPbr.shader");
-		mCamera = std::make_unique<nelems::Camera>(glm::vec3(0.0f, 0.0f, 3.0f), 45.0f, 1.3f, 0.1f, 100.0f);
+		mShader = std::make_unique<nshaders::Shader>("shaders/vs.shader", "shaders/fs.shader");
+		mCamera = std::make_unique<nelems::Camera>(glm::vec3(0.0f, 0.0f, 3.0f), 45.0f, (float)mSize.x/(float)mSize.y, 0.1f, 100.0f);
 	}
 
-	void SceneView::resize(int32_t width, int32_t height)
+	void SceneView::resize(uint32_t width, uint32_t height)
 	{
 		mSize.x = width;
 		mSize.y = height;
 
-		
+		mFramebuffer->create_buffers(width, height);
 	}
 
 	void SceneView::render()
@@ -38,14 +38,24 @@ namespace nui
 		if (mModel)
 		{
 			mModel->update(mShader.get());
+			mModel->Draw(mShader.get());
 		}
 
 		mFramebuffer->unbind();
 
+		// Set a minimum size of 400x300, no maximum limit
+		ImGui::SetNextWindowSizeConstraints(ImVec2(400, 300), ImVec2(FLT_MAX, FLT_MAX));
+
 		ImGui::Begin("Scene");
-		
+	
+		// get the current size of the ImGui window content area
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		mSize = { viewportPanelSize.x, viewportPanelSize.y };
+
+		// Only resize if the window size has actually changed
+		if (viewportPanelSize.x != mSize.x || viewportPanelSize.y != mSize.y) {
+			mSize = { viewportPanelSize.x, viewportPanelSize.y };
+			this->resize((int32_t)mSize.x, (int32_t)mSize.y);
+		}
 
 		mCamera->setAspect(mSize.x / mSize.y);
 		mCamera->update(mShader.get());
@@ -60,12 +70,11 @@ namespace nui
 
 	void SceneView::load_model(const std::string& filepath)
 	{
+		mModel = std::make_unique<nelems::Model>(filepath);
 	}
 
-	std::unique_ptr<nelems::Model> SceneView::get_model()
+	nelems::Model* SceneView::get_model()
 	{
-		return mModel;
+		return mModel.get();
 	}
-
-	
 }

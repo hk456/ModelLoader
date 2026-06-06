@@ -4,6 +4,7 @@
 #include "../elems/camera.h"
 #include "../elems/model.h"
 #include "../shader/shader_util.h"
+#include "renderer.h"
 
 namespace nui
 {
@@ -37,6 +38,7 @@ namespace nui
 		std::unique_ptr<nrender::OpenGL_Framebuffer> mFramebuffer;
 		std::unique_ptr<nelems::Model> mModel;
 		std::unique_ptr<nshaders::Shader> mShader;
+		std::unique_ptr<Renderer> mRenderer;
 		glm::vec2 mSize;
 	};
 }

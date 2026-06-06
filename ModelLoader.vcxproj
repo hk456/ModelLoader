@@ -154,6 +154,7 @@
     <ClCompile Include="src\render\ui_context.cpp" />
     <ClCompile Include="src\shader\shader_util.cpp" />
     <ClCompile Include="src\ui\property_panel.cpp" />
+    <ClCompile Include="src\ui\renderer.cpp" />
     <ClCompile Include="src\ui\scene_view.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_demo.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="src\render\ui_context.h" />
     <ClInclude Include="src\shader\shader_util.h" />
     <ClInclude Include="src\ui\property_panel.h" />
+    <ClInclude Include="src\ui\renderer.h" />
     <ClInclude Include="src\ui\scene_view.h" />
     <ClInclude Include="src\vendor\glm\common.hpp" />
     <ClInclude Include="src\vendor\glm\detail\compute_common.hpp" />

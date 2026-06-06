@@ -9,11 +9,12 @@ namespace nui
 {
 	SceneView::SceneView() :
 		mCamera(nullptr), mShader(nullptr), mFramebuffer(nullptr),
-		mSize(400, 300)
+		mSize(400, 300), mRenderer(nullptr)
 	{
 		mFramebuffer = std::make_unique<nrender::OpenGL_Framebuffer>();
 		mFramebuffer->create_buffers(1300, 900);
-		mShader = std::make_unique<nshaders::Shader>("shaders/vs.shader", "shaders/fs.shader");
+		mShader = std::make_unique<nshaders::Shader>("shaders/vs_temp.shader", "shaders/fs_temp.shader");
+		mRenderer = std::make_unique<Renderer>();
 		mCamera = std::make_unique<nelems::Camera>(glm::vec3(0.0f, 0.0f, 3.0f), 45.0f, (float)mSize.x/(float)mSize.y, 0.1f, 100.0f);
 	}
 
@@ -33,11 +34,7 @@ namespace nui
 		// activate the framebuffer
 		mFramebuffer->bind();
 
-		if (mModel)
-		{
-			mModel->update(mShader.get());
-			mModel->Draw(mShader.get());
-		}
+		mRenderer->Draw(mShader.get());
 
 		mFramebuffer->unbind();
 

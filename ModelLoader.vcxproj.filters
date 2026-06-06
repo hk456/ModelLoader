@@ -81,6 +81,9 @@
     <ClCompile Include="src\elems\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main.h">
@@ -1041,6 +1044,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\elems\input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

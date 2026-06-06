@@ -57,8 +57,8 @@ namespace nelems
 		float mAspect;
 		float mNear;
 		float mFar;
-		float mSensitivity = 0.1f;
-		float mPanSpeed = 0.1f;
+		float mSensitivity = 0.001f;
+		float mPanSpeed = 0.001f;
 
 		// -- Helper functions for math --	
 		void update_view_matrix();

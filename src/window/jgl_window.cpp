@@ -68,7 +68,7 @@ namespace nwindow
 
 	void GLWindow::on_scroll(double delta)
 	{
-		//mScene->on_mouse_wheel(delta);
+		mSceneView->on_mouse_wheel(delta);
 	}
 
 	void GLWindow::on_key(int key, int scancode, int action, int mods)

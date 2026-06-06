@@ -125,7 +125,6 @@ namespace nelems
 
 	void Camera::update(nshaders::Shader* shader)
 	{
-		// FIX: Removed the line setting "model" matrix to identity!
 		shader->setMat4("view", GetViewMatrix());
 		shader->setMat4("projection", GetProjectionMatrix());
 	}

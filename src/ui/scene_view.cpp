@@ -27,43 +27,59 @@ namespace nui
 
 	void SceneView::render()
 	{
+		// Setup ImGui constraints and window FIRST so we can get sizes
+		ImGui::SetNextWindowSizeConstraints(ImVec2(400, 300), ImVec2(FLT_MAX, FLT_MAX));
+		ImGui::Begin("Scene");
+
+		// Get the current size of the ImGui window content area
+		ImVec2 viewPortPanelSize = ImGui::GetContentRegionAvail();
+
+		// Handle scaling/resizing dynamically
+		if (viewPortPanelSize.x != mSize.x || viewPortPanelSize.y != mSize.y) {
+			mSize = { viewPortPanelSize.x, viewPortPanelSize.y };
+			this->resize((uint32_t)mSize.x, (uint32_t)mSize.y);
+		}
+
+		// Now start drawing
+		mFramebuffer->bind();
+
+		// resize the window to the size of the scene window
+		glViewport(0, 0, (GLsizei)mSize.x, (GLsizei)mSize.y);
+
+		// clear the custom framebuffer's color and depth buffers
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		// activate the shader
 		mShader->use();
 
-		// activate the framebuffer
-		mFramebuffer->bind();
+		// update and upload camera matrices
+		mCamera->setAspect(mSize.x / mSize.y);
+		mCamera->update(mShader.get());
 
+		// draw the model if it exists
 		if (mModel)
 		{
 			mModel->update(mShader.get());
 			mModel->Draw(mShader.get());
 		}
 
+		// unbind the framebuffer
 		mFramebuffer->unbind();
 
-		// Set a minimum size of 400x300, no maximum limit
-		ImGui::SetNextWindowSizeConstraints(ImVec2(400, 300), ImVec2(FLT_MAX, FLT_MAX));
+		// Add the rendered texture to the ImGui viewport window
+		uint64_t textureID = mFramebuffer->get_texture();
 
-		ImGui::Begin("Scene");
-	
-		// get the current size of the ImGui window content area
-		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-
-		// Only resize if the window size has actually changed
-		if (viewportPanelSize.x != mSize.x || viewportPanelSize.y != mSize.y) {
-			mSize = { viewportPanelSize.x, viewportPanelSize.y };
-			this->resize((int32_t)mSize.x, (int32_t)mSize.y);
+		// ADD THIS TEMPORARY PRINT:
+		static int frameCount = 0;
+		if (frameCount++ % 60 == 0) { // Prints once every 60 frames so it doesn't spam too fast
+			std::cout << "DEBUG: Texture ID = " << textureID
+				<< " | Render Size = " << mSize.x << "x" << mSize.y << "\n";
 		}
 
-		mCamera->setAspect(mSize.x / mSize.y);
-		mCamera->update(mShader.get());
-
-		// add rendered texture to ImGUI scene window
-		uint64_t textureID = mFramebuffer->get_texture();
 		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ mSize.x, mSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 		ImGui::End();
-
 	}
 
 	void SceneView::load_model(const std::string& filepath)

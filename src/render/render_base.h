@@ -33,7 +33,7 @@ namespace nrender
 		Framebuffer() : mFBO{ 0 }, mDepthId{ 0 }
 		{ }
 
-		virtual void create_buffers(int32_t width, int32_t height) = 0;
+		virtual void create_buffers(uint32_t width, uint32_t height) = 0;
 
 		virtual void delete_buffers() = 0;
 

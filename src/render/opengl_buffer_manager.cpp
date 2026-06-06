@@ -45,7 +45,7 @@ namespace nrender
 	{
 		if (mFBO)
 		{
-			glDeleteFramebuffers(GL_FRAMEBUFFER, &mFBO);
+			glDeleteFramebuffers(1, &mFBO);
 			glDeleteTextures(1, &mTexId);
 			glDeleteTextures(1, &mDepthId);
 			mTexId = 0;

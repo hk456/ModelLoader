@@ -30,8 +30,6 @@ namespace nui
 		// activate the shader
 		mShader->use();
 
-		// set all the lighting uniforms
-
 		// activate the framebuffer
 		mFramebuffer->bind();
 
@@ -76,5 +74,10 @@ namespace nui
 	nelems::Model* SceneView::get_model()
 	{
 		return mModel.get();
+	}
+
+	void SceneView::on_mouse_wheel(double delta)
+	{
+		mCamera->on_mouse_wheel(delta);
 	}
 }

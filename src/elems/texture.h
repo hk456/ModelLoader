@@ -12,7 +12,7 @@ struct Texture
 inline unsigned int loadTexture(const char* path, const std::string& directory, bool gamma = false)
 {
 	std::string filename = std::string(path);
-	filename = directory + '/' + filename;
+	filename = directory + '\\' + filename;
 
 	unsigned int textureID;
 	glGenTextures(1, &textureID);

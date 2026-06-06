@@ -30,6 +30,8 @@ namespace nui
 			mModel = std::move(model);
 		}
 
+		void on_mouse_wheel(double delta);
+
 	private:
 		std::unique_ptr<nelems::Camera> mCamera;
 		std::unique_ptr<nrender::OpenGL_Framebuffer> mFramebuffer;

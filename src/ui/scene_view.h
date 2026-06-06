@@ -20,6 +20,8 @@ namespace nui
 
 		void resize(uint32_t width, uint32_t height);
 
+		void reset_view();
+
 		void render();
 
 		void load_model(const std::string& filepath);
@@ -32,6 +34,8 @@ namespace nui
 		}
 
 		void on_mouse_wheel(double delta);
+
+		void on_mouse_move(double x, double y, nelems::EInputButton button);
 
 	private:
 		std::unique_ptr<nelems::Camera> mCamera;

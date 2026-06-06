@@ -59,16 +59,23 @@ namespace nwindow
 	{
 		if (glfwGetKey(mWindow, GLFW_KEY_W) == GLFW_PRESS)
 		{
+			mSceneView->on_mouse_wheel(-0.4f);
 		}
 
 		if (glfwGetKey(mWindow, GLFW_KEY_S) == GLFW_PRESS)
 		{
+			mSceneView->on_mouse_wheel(-0.4f);
+		}
+		
+		if (glfwGetKey(mWindow, GLFW_KEY_F) == GLFW_PRESS)
+		{
+			mSceneView->reset_view();
 		}
 	}
 
 	void GLWindow::on_scroll(double delta)
 	{
-		//mScene->on_mouse_wheel(delta);
+		mSceneView->on_mouse_wheel(delta);
 	}
 
 	void GLWindow::on_key(int key, int scancode, int action, int mods)

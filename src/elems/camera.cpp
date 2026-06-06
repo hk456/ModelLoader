@@ -12,7 +12,7 @@ namespace nelems
 		mPitch = 0.0f;
 
 		update_view_matrix();
-		mProjectionMatrix = glm::perspective(mFov, mAspect, mNear, mFar);
+		mProjectionMatrix = glm::perspective(glm::radians(mFov), mAspect, mNear, mFar);
 	}
 
 	inline glm::mat4 Camera::GetViewMatrix()
@@ -27,7 +27,10 @@ namespace nelems
 	void Camera::update_view_matrix()
 	{
 		// FIX: Convert Pitch and Yaw from degrees to RADIANS before building the quaternion
-		mOrientation = glm::quat(glm::vec3(glm::radians(-mPitch), glm::radians(-mYaw), 0.0f));
+		glm::quat qPitch = glm::angleAxis(glm::radians(mPitch), glm::vec3(1.0f, 0.0f, 0.0f));
+		glm::quat qYaw = glm::angleAxis(glm::radians(mYaw), glm::vec3(0.0f, 1.0f, 0.0f));
+
+		mOrientation = qYaw * qPitch;
 
 		// Update position relative to focus point
 		mPosition = mFocus - GetForwardDirection() * mDistance;
@@ -52,7 +55,6 @@ namespace nelems
 
 	void Camera::Zoom(float delta)
 	{
-		// Fix zoom logic to actually change target distance
 		mDistance -= delta;
 		if (mDistance < 0.1f) mDistance = 0.1f; // Prevent crossing past the focus target
 		mViewDirty = true;
@@ -125,7 +127,6 @@ namespace nelems
 
 	void Camera::update(nshaders::Shader* shader)
 	{
-		// FIX: Removed the line setting "model" matrix to identity!
 		shader->setMat4("view", GetViewMatrix());
 		shader->setMat4("projection", GetProjectionMatrix());
 	}

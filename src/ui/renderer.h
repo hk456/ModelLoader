@@ -8,5 +8,5 @@ class Renderer
 public:
 	void Draw(nshaders::Shader* shader);
 private:
-	void renderCube();
+	void renderCube(nshaders::Shader* shader);
 };

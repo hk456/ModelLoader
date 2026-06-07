@@ -3,11 +3,16 @@
 
 namespace nelems
 {
+	void Model::Draw(nshaders::Shader* shader)
+	{
+		for (unsigned int i = 0; i < meshes.size(); i++)
+			meshes[i].update(shader);
+	}
+
 	void Model::update(nshaders::Shader* shader)
 	{	
         glm::mat4 model = glm::mat4(1.0f); 
-        model = glm::rotate(glm::radians(-55.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        //model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); 
+        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         shader->setMat4("model", model);
 	}
 
@@ -93,6 +98,7 @@ namespace nelems
 
 				vector.x = mesh->mTangents[i].x;
 				vector.y = mesh->mTangents[i].y;
+				vector.z = mesh->mTangents[i].z;
 				vertex.Tangent = vector;
 
 				vector.x = mesh->mBitangents[i].x;
@@ -128,6 +134,17 @@ namespace nelems
 		// 4. height maps
 		std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
 		textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+
+		std::cout << "[Assimp Debug] Processed a mesh!" << std::endl;
+		std::cout << "   - Vertices count: " << vertices.size() << std::endl;
+		std::cout << "   - Indices count: " << indices.size() << std::endl;
+
+		if (!vertices.empty()) {
+			std::cout << "   - Vertex[0] Position: ("
+				<< vertices[0].Position.x << ", "
+				<< vertices[0].Position.y << ", "
+				<< vertices[0].Position.z << ")" << std::endl;
+		}
 
 		return Mesh(vertices, indices, textures);
 	}

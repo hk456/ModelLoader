@@ -74,6 +74,8 @@ namespace nrender
 		}
 
 		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_CULL_FACE); // Stop culling backward triangles
+		glDepthFunc(GL_ALWAYS);  // Force it to draw over the skybox/background completely
 
 		return true;
 	}

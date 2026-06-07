@@ -22,11 +22,9 @@ namespace nelems
 			loadModel(path);
 		}
 
-		void Draw(nshaders::Shader* shader)
-		{
-			for (unsigned int i = 0; i < meshes.size(); i++)
-				meshes[i].update(shader);
-		}
+		~Model() { std::cout << "model ahs been dleeted\n"; }
+
+		void Draw(nshaders::Shader* shader);
 
 		void update(nshaders::Shader* shader) override;
 

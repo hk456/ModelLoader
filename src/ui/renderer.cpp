@@ -1,78 +1,33 @@
 #include "renderer.h"
+#include "../elems/vertex.h"
+#include "../elems/mesh.h"
+#include "../elems/texture.h"
+
 
 void Renderer::Draw(nshaders::Shader* shader)
 {
     //glm::mat4 model = glm::mat4(1.0f);
     //model = glm::translate(model, glm::vec3(0.0f, 0.0f, 2.0f));
     //shader->setMat4("model", model);
-    renderCube();
+    renderCube(shader);
 }
 
-// renderCube() renders a 1x1 3D cube in NDC.
 // -------------------------------------------------
-unsigned int cubeVAO = 0;
-unsigned int cubeVBO = 0;
-void Renderer::renderCube()
+void Renderer::renderCube(nshaders::Shader* shader)
 {
-    // initialize (if necessary)
-    if (cubeVAO == 0)
-    {
-        float vertices[] = {
-			-0.5f, -0.5f, -0.5f,  
-			 0.5f, -0.5f, -0.5f,  
-			 0.5f,  0.5f, -0.5f,  
-			 0.5f,  0.5f, -0.5f,  
-			-0.5f,  0.5f, -0.5f,  
-			-0.5f, -0.5f, -0.5f,  
+    // 1. Create a tiny dummy triangle or use your cube vertices
+    std::vector<Vertex> dummyVertices;
+    Vertex v1, v2, v3;
+    v1.Position = glm::vec3(-1.0f, -1.0f, 0.0f);
+    v2.Position = glm::vec3(1.0f, -1.0f, 0.0f);
+    v3.Position = glm::vec3(0.0f, 1.0f, 0.0f);
+    dummyVertices.push_back(v1); dummyVertices.push_back(v2); dummyVertices.push_back(v3);
 
-			-0.5f, -0.5f,  0.5f,  
-			 0.5f, -0.5f,  0.5f,  
-			 0.5f,  0.5f,  0.5f,  
-			 0.5f,  0.5f,  0.5f,  
-			-0.5f,  0.5f,  0.5f,  
-			-0.5f, -0.5f,  0.5f,  
+    std::vector<unsigned int> dummyIndices = { 0, 1, 2 };
+    std::vector<Texture> dummyTextures; // Leave empty
 
-			-0.5f,  0.5f,  0.5f,  
-			-0.5f,  0.5f, -0.5f,  
-			-0.5f, -0.5f, -0.5f,  
-			-0.5f, -0.5f, -0.5f,  
-			-0.5f, -0.5f,  0.5f,  
-			-0.5f,  0.5f,  0.5f,  
+    // 2. Feed it into your actual Mesh class manually
+    nelems::Mesh testMesh(dummyVertices, dummyIndices, dummyTextures);
 
-			 0.5f,  0.5f,  0.5f,  
-			 0.5f,  0.5f, -0.5f,  
-			 0.5f, -0.5f, -0.5f,  
-			 0.5f, -0.5f, -0.5f,  
-			 0.5f, -0.5f,  0.5f,  
-			 0.5f,  0.5f,  0.5f,  
-
-			-0.5f, -0.5f, -0.5f,  
-			 0.5f, -0.5f, -0.5f,  
-			 0.5f, -0.5f,  0.5f,  
-			 0.5f, -0.5f,  0.5f,  
-			-0.5f, -0.5f,  0.5f,  
-			-0.5f, -0.5f, -0.5f,  
-
-			-0.5f,  0.5f, -0.5f,  
-			 0.5f,  0.5f, -0.5f,  
-			 0.5f,  0.5f,  0.5f,  
-			 0.5f,  0.5f,  0.5f,  
-			-0.5f,  0.5f,  0.5f,  
-			-0.5f,  0.5f, -0.5f
-        };
-        glGenVertexArrays(1, &cubeVAO);
-        glGenBuffers(1, &cubeVBO);
-        // fill buffer
-        glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-        // link vertex attributes
-        glBindVertexArray(cubeVAO);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        glBindVertexArray(0);
-    }
-    // render Cube
-    glBindVertexArray(cubeVAO);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    glBindVertexArray(0);
+    testMesh.draw(shader);
 }

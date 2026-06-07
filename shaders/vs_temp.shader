@@ -10,5 +10,9 @@ uniform mat4 model;
 void main()
 {
 	color = aPos;
+
+	vec3 squeezedPos = aPos * 0.5;
+	squeezedPos.z += 0.2;
+
 	gl_Position = projection * view * model * vec4(aPos, 1.0);	
 }

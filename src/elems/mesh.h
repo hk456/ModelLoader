@@ -23,6 +23,14 @@ namespace nelems
 		// Destructor
 		~Mesh();
 
+		// disable copying
+		Mesh(const Mesh&) = delete;
+		Mesh operator=(const Mesh&) = delete;
+
+		// enable moving
+		Mesh(Mesh&& other) noexcept;
+		Mesh& operator=(Mesh&& other) noexcept;
+
 		// Public Draw Function
 		void draw(nshaders::Shader* shader);
 

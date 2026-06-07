@@ -6,6 +6,7 @@
 #include "../ui/scene_view.h"
 #include "../render/ui_context.h"
 #include "../render/opengl_context.h"
+#include "../elems/element.h"
 
 using namespace nrender;
 using namespace nui;
@@ -44,6 +45,8 @@ namespace nwindow
 		void on_resize(int width, int height) override;
 
 		void on_close() override;
+
+		void on_mouse_movement(double xpos, double ypos) override;
 
 		bool is_running() { return mIsRunning; }
 

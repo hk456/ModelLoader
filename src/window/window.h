@@ -17,6 +17,8 @@ namespace nwindow
 
 		virtual void on_resize(int width, int height) = 0;
 
+		virtual void on_mouse_movement(double xpos, double ypos) = 0;
+
 		virtual void on_close() = 0;
 
 		int Width;

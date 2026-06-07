@@ -99,7 +99,7 @@ namespace nelems
 		glm::vec2 offset = glm::vec2(x, y) - mCurrentMousePos;
 		mCurrentMousePos = { x, y };
 
-		if (button == EInputButton::Right)
+		if (button == EInputButton::Left)
 		{
 			// ROTATION (Look Around)
 			mYaw += offset.x * mSensitivity;

@@ -1,5 +1,7 @@
 #include "jgl_window.h"
 
+using namespace nelems;
+
 namespace nwindow
 {
 	bool GLWindow::init(int width, int height, const std::string& title)
@@ -59,12 +61,12 @@ namespace nwindow
 	{
 		if (glfwGetKey(mWindow, GLFW_KEY_W) == GLFW_PRESS)
 		{
-			mSceneView->on_mouse_wheel(-0.4f);
+			mSceneView->on_mouse_wheel(0.04f);
 		}
 
 		if (glfwGetKey(mWindow, GLFW_KEY_S) == GLFW_PRESS)
 		{
-			mSceneView->on_mouse_wheel(-0.4f);
+			mSceneView->on_mouse_wheel(-0.04f);
 		}
 		
 		if (glfwGetKey(mWindow, GLFW_KEY_F) == GLFW_PRESS)
@@ -76,6 +78,31 @@ namespace nwindow
 	void GLWindow::on_scroll(double delta)
 	{
 		mSceneView->on_mouse_wheel(delta);
+	}
+
+	void GLWindow::on_mouse_movement(double xpos, double ypos)
+	{
+		EInputButton activeButton = EInputButton::None;
+
+		if (glfwGetMouseButton(mWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			activeButton = EInputButton::Left;
+		}
+		else if(glfwGetMouseButton(mWindow, GLFW_MOUSE_BUTTON_MIDDLE) == GLFW_PRESS)
+		{
+			activeButton = EInputButton::Middle;
+		}
+		
+		if (activeButton == EInputButton::Left || activeButton == EInputButton::Middle)
+		{
+			glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+		else
+		{
+			glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+
+		mSceneView->on_mouse_move(xpos, ypos, activeButton);
 	}
 
 	void GLWindow::on_key(int key, int scancode, int action, int mods)

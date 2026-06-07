@@ -26,6 +26,11 @@ namespace nrender
 		pWindow->on_close();
 	}
 
+	static void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+		auto pWindow = static_cast<nwindow::IWindow*>(glfwGetWindowUserPointer(window));
+		pWindow->on_mouse_movement(xpos, ypos);
+	}
+
 	bool OpenGL_Context::init(nwindow::IWindow* window)
 	{
 		__super::init(window);
@@ -56,6 +61,7 @@ namespace nrender
 		glfwSetKeyCallback(glWindow, on_key_callback);
 		glfwSetScrollCallback(glWindow, on_scroll_callback);
 		glfwSetWindowSizeCallback(glWindow, on_window_size_callback);
+		glfwSetCursorPosCallback(glWindow, mouse_callback);
 		glfwSetWindowCloseCallback(glWindow, on_window_close_callback);
 		glfwMakeContextCurrent(glWindow);
 

@@ -4,8 +4,11 @@
 namespace nelems
 {
 	void Model::update(nshaders::Shader* shader)
-	{
-
+	{	
+        glm::mat4 model = glm::mat4(1.0f); 
+        model = glm::rotate(glm::radians(-55.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        //model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); 
+        shader->setMat4("model", model);
 	}
 
 	void nelems::Model::loadModel(std::string const& path)

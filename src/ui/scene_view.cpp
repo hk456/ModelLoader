@@ -5,6 +5,8 @@
 #include "../pch.h"
 #include "scene_view.h"
 
+using namespace nelems;
+
 namespace nui
 {
 	SceneView::SceneView() :
@@ -13,7 +15,7 @@ namespace nui
 	{
 		mFramebuffer = std::make_unique<nrender::OpenGL_Framebuffer>();
 		mFramebuffer->create_buffers(1300, 900);
-		mShader = std::make_unique<nshaders::Shader>("shaders/vs_temp.shader", "shaders/fs_temp.shader");
+		mShader = std::make_unique<nshaders::Shader>("shaders/vs.shader", "shaders/fs.shader");
 		mRenderer = std::make_unique<Renderer>();
 		mCamera = std::make_unique<nelems::Camera>(glm::vec3(0.0f, 0.0f, 5.0f), 45.0f, (float)mSize.x/(float)mSize.y, 0.1f, 100.0f);
 	}
@@ -50,10 +52,10 @@ namespace nui
         // ==========================================
         // STEP 2: BIND AND CLEAR THE FRAMEBUFFER
         // ==========================================
-        mFramebuffer->bind(); // BIND FIRST so glViewport and glClear know where to go!
+        mFramebuffer->bind(); 
 
         glViewport(0, 0, (GLsizei)mSize.x, (GLsizei)mSize.y);
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // Dark charcoal background
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // white guy background
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // ==========================================
@@ -65,17 +67,14 @@ namespace nui
         mCamera->setAspect(mSize.x / mSize.y);
         mCamera->update(mShader.get());
 
-        // 3b. Send Model Matrix (Identity / Positioning)
-        glm::mat4 model = glm::mat4(1.0f);
-        // If the model is too big/small or needs to be pushed up, modify it here:
-        model = glm::rotate(glm::radians(-55.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        //model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); 
-        mShader->setMat4("model", model);
-
         // ==========================================
         // STEP 4: DRAW THE GEOMETRY
         // ==========================================
-        mRenderer->Draw(mShader.get());
+        if (mModel)
+        {
+            mModel->update(mShader.get());
+            mModel->Draw(mShader.get());
+        }
 
         mFramebuffer->unbind(); // Safely unbind back to default buffer
 
@@ -103,7 +102,7 @@ namespace nui
 		mCamera->on_mouse_wheel(delta);
 	}
 
-    void SceneView::on_mouse_move(double x, double y, nelems::EInputButton button)
+    void SceneView::on_mouse_move(double x, double y, EInputButton button)
     {
         mCamera->on_mouse_move(x, y, button);
     }

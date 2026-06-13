@@ -6,9 +6,9 @@
 
 void Renderer::Draw(nshaders::Shader* shader)
 {
-    //glm::mat4 model = glm::mat4(1.0f);
-    //model = glm::translate(model, glm::vec3(0.0f, 0.0f, 2.0f));
-    //shader->setMat4("model", model);
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0.0f, 0.0f, 2.0f));
+    shader->setMat4("model", model);
     renderCube(shader);
 }
 
@@ -29,5 +29,5 @@ void Renderer::renderCube(nshaders::Shader* shader)
     // 2. Feed it into your actual Mesh class manually
     nelems::Mesh testMesh(dummyVertices, dummyIndices, dummyTextures);
 
-    testMesh.draw(shader);
+    testMesh.Draw(shader);
 }

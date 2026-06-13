@@ -16,8 +16,8 @@ namespace nelems
 		Camera(const glm::vec3& position, float fov, float aspect, float near, float far);
 
 		// -- The Core outputs --
-		inline glm::mat4 GetViewMatrix();
-		inline glm::mat4 GetProjectionMatrix() const { return mProjectionMatrix; }
+		glm::mat4 GetViewMatrix();
+		glm::mat4 GetProjectionMatrix() const { return mProjectionMatrix; }
 
 		// -- The Inputs (Higher logic) --
 		void Pan(const glm::vec2& delta);

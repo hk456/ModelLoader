@@ -1,7 +1,6 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
-
 #include "../pch.h"
 #include "scene_view.h"
 
@@ -83,7 +82,7 @@ namespace nui
         // ==========================================
         uint64_t textureID = mFramebuffer->get_texture();
         ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ mSize.x, mSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-
+    
         ImGui::End();
     }
 

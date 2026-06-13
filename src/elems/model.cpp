@@ -6,7 +6,7 @@ namespace nelems
 	void Model::Draw(nshaders::Shader* shader)
 	{
 		for (unsigned int i = 0; i < meshes.size(); i++)
-			meshes[i].update(shader);
+			meshes[i].Draw(shader);
 	}
 
 	void Model::update(nshaders::Shader* shader)

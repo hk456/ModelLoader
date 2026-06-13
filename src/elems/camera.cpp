@@ -15,7 +15,7 @@ namespace nelems
 		mProjectionMatrix = glm::perspective(glm::radians(mFov), mAspect, mNear, mFar);
 	}
 
-	inline glm::mat4 Camera::GetViewMatrix()
+	glm::mat4 Camera::GetViewMatrix()
 	{
 		if (mViewDirty) {
 			update_view_matrix();

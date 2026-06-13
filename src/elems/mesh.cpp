@@ -58,7 +58,7 @@ namespace nelems
 		return *this;
 	}
 
-	void Mesh::draw(nshaders::Shader* shader)
+	void Mesh::Draw(nshaders::Shader* shader)
 	{
 		this->update(shader);
 

@@ -32,7 +32,7 @@ namespace nelems
 		Mesh& operator=(Mesh&& other) noexcept;
 
 		// Public Draw Function
-		void draw(nshaders::Shader* shader);
+		void Draw(nshaders::Shader* shader);
 
 		// update uniforms
 		void update(nshaders::Shader* shader) override;

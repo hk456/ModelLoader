@@ -182,6 +182,10 @@
     <ClInclude Include="src\render\render_base.h" />
     <ClInclude Include="src\render\ui_context.h" />
     <ClInclude Include="src\shader\shader_util.h" />
+    <ClInclude Include="src\test_files\camera.h" />
+    <ClInclude Include="src\test_files\mesh.h" />
+    <ClInclude Include="src\test_files\model.h" />
+    <ClInclude Include="src\test_files\shader.h" />
     <ClInclude Include="src\ui\property_panel.h" />
     <ClInclude Include="src\ui\renderer.h" />
     <ClInclude Include="src\ui\scene_view.h" />

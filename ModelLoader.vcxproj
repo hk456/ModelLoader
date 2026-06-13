@@ -142,20 +142,8 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\application.cpp" />
-    <ClCompile Include="src\elems\camera.cpp" />
-    <ClCompile Include="src\elems\element.cpp" />
-    <ClCompile Include="src\elems\mesh.cpp" />
-    <ClCompile Include="src\elems\model.cpp" />
+    <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\render\opengl_buffer_manager.cpp" />
-    <ClCompile Include="src\render\opengl_context.cpp" />
-    <ClCompile Include="src\render\ui_context.cpp" />
-    <ClCompile Include="src\shader\shader_util.cpp" />
-    <ClCompile Include="src\ui\property_panel.cpp" />
-    <ClCompile Include="src\ui\renderer.cpp" />
-    <ClCompile Include="src\ui\scene_view.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_demo.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_draw.cpp" />
@@ -164,31 +152,12 @@
     <ClCompile Include="src\vendor\imgui\imgui_tables.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\vendor\stb_image\stb_image.cpp" />
-    <ClCompile Include="src\window\jgl_window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\application.h" />
-    <ClInclude Include="src\elems\camera.h" />
-    <ClInclude Include="src\elems\element.h" />
-    <ClInclude Include="src\elems\input.h" />
-    <ClInclude Include="src\elems\mesh.h" />
-    <ClInclude Include="src\elems\model.h" />
-    <ClInclude Include="src\elems\texture.h" />
-    <ClInclude Include="src\elems\vertex.h" />
-    <ClInclude Include="src\main.h" />
-    <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\render\opengl_buffer_manager.h" />
-    <ClInclude Include="src\render\opengl_context.h" />
-    <ClInclude Include="src\render\render_base.h" />
-    <ClInclude Include="src\render\ui_context.h" />
-    <ClInclude Include="src\shader\shader_util.h" />
     <ClInclude Include="src\test_files\camera.h" />
     <ClInclude Include="src\test_files\mesh.h" />
     <ClInclude Include="src\test_files\model.h" />
     <ClInclude Include="src\test_files\shader.h" />
-    <ClInclude Include="src\ui\property_panel.h" />
-    <ClInclude Include="src\ui\renderer.h" />
-    <ClInclude Include="src\ui\scene_view.h" />
     <ClInclude Include="src\vendor\glm\common.hpp" />
     <ClInclude Include="src\vendor\glm\detail\compute_common.hpp" />
     <ClInclude Include="src\vendor\glm\detail\compute_vector_decl.hpp" />
@@ -490,8 +459,6 @@
     <ClInclude Include="src\vendor\imgui\imstb_textedit.h" />
     <ClInclude Include="src\vendor\imgui\imstb_truetype.h" />
     <ClInclude Include="src\vendor\stb_image\stb_image.h" />
-    <ClInclude Include="src\window\jgl_window.h" />
-    <ClInclude Include="src\window\window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vendor\glm\detail\func_common.inl" />

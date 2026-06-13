@@ -1,8 +1,15 @@
-#include "pch.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "test_files/shader.h"
 #include "test_files/camera.h"
 #include "test_files/model.h"
+
+#include <iostream>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -70,15 +77,11 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader ourShader("1.model_loading.vs", "1.model_loading.fs");
+    Shader ourShader("src/1.model_loading.vs", "src/1.model_loading.fs");
 
     // load models
     // -----------
-    Model ourModel(FileSystem::getPath("resources/objects/backpack/backpack.obj"));
-
-
-    // draw in wireframe
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    Model ourModel("resources/objects/backpack/backpack.obj");
 
     // render loop
     // -----------

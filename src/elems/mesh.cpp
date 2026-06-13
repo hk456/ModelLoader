@@ -72,6 +72,18 @@ namespace nelems
 
 	void Mesh::update(nshaders::Shader* shader)
 	{
+		this->update(shader);
+
+		// draw mesh
+		glBindVertexArray(VAO);
+		glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+
+		glActiveTexture(GL_TEXTURE0);	
+	}
+
+	void Mesh::update(nshaders::Shader* shader)
+	{
 		// bind appropriate textures
 		unsigned int diffuseNr = 1;
 		unsigned int specularNr = 1;
